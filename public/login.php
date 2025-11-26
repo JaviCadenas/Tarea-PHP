@@ -1,30 +1,30 @@
 <?php
-// 1. Traemos la conexión a la Base de Datos
+// 1. Nos conectmos a la base de datos
 require '../app/pdo.php';
 
-// 2. Iniciamos la sesión (la memoria del navegador)
+// 2. Iniciamos la sesión en la base de datos
 session_start();
 
 $mensaje = ""; // Aquí guardaremos el error si falla el login
 
-// 3. Detectamos si el usuario pulsó el botón "Entrar" (Método POST)
+// 3. con esto sabemos si el formulario fue enviado con POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $user_form = $_POST['username']; // Lo que escribió en el input
-    $pass_form = $_POST['password']; // La contraseña que escribió
+    $user_form = $_POST['username']; // Aqui se guarda lo que escribio en el input
+    $pass_form = $_POST['password']; // Aqui se guarda la contraseña que escribio
 
-    // 4. Preparamos la consulta para buscar ese usuario
-    // Usamos :u para evitar hackeos (SQL Injection)
+    // 4. Esta es la consulta para buscar al usuario en la base de datos
+    // Usamos :u para evitar inyecciones SQL
     $sql = "SELECT * FROM usuarios WHERE username = :u";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([':u' => $user_form]);
     
-    $usuario_bd = $stmt->fetch(); // Trae los datos del usuario (o false si no existe)
+    $usuario_bd = $stmt->fetch(); // la informacion encontrada en la consulta, lo guardamos
 
     // 5. Verificamos la contraseña
-    // password_verify compara la clave escrita 'hola123' con el hash '$2y$10...' de la BD
+    // password_verify compara la constraseña escrita con el hash de la base de datos
     if ($usuario_bd && password_verify($pass_form, $usuario_bd['password'])) {
         
-        // ¡Login Éxitoso! Guardamos quién es en la sesión
+        // Aqui guardamos quien es en la sesión
         $_SESSION['user_id']  = $usuario_bd['id'];
         $_SESSION['username'] = $usuario_bd['username'];
         
