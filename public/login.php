@@ -38,5 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         Clave: <input type="password" name="password" required><br>
         <button type="submit">Entrar</button>
     </form>
+    <div style="margin-top: 20px;">
+        ¿No tienes cuenta? 
+        <a href="register.php" style="color: dodgerblue; text-decoration: none; font-weight: bold;">
+            Crea una aquí
+        </a>
+    </div>
 </body>
 </html>
