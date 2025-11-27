@@ -5,7 +5,7 @@ require '../app/csrf.php';
 require_login(); // Protegemos la página, con esto nos aseguramos que solo usuarios logueados accedan
 
 // Aquí dependiendo de la preferencia de la cookie dejamos el fondo blanco o en negro
-$tema = $_COOKIE['tema'] ?? 'white'; // Si no hay cookies, se quedan el blanco por defecto
+$tema = $_COOKIE['tema'] ?? 'claro'; // Si no hay cookies, se quedan el blanco por defecto
 
 // Aqui esta la barra de busqueda y paginacion
 $busqueda = $_GET['q'] ?? '';
@@ -23,18 +23,31 @@ $items = $stmt->fetchAll();
 // Aqui recibe el token de la clase csrf para el boton borrar
 $token = csrf_token();
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Inventario</title>
-    <style> body { background-color: <?= e($tema) ?>; } </style>
+    
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        
+        /* Estilos cuando estamos en modo CLARO */
+        body.tema-claro { background-color: white; color: black; }
+        body.tema-claro a { color: blue; }
+
+        /* Estilos cuando estamos en modo OSCURO */
+        body.tema-oscuro { background-color: #222; color: #eee; }
+        body.tema-oscuro a { color: #4da6ff; }
+        body.tema-oscuro table { border-color: #555; }
+    </style>
 </head>
-<body>
+
+<body class="tema-<?= e($tema) ?>">
+
     <nav>
-        Hola, <?= e($_SESSION['username']) ?> | 
-        <a href="logout.php">Salir</a> | 
+        Hola, <?= e($_SESSION['username']) ?> |
+        <a href="logout.php">Salir</a> |
         <a href="preferencias.php">Cambiar Color</a>
     </nav>
 
@@ -45,6 +58,7 @@ $token = csrf_token();
         <button type="submit">Buscar</button>
     </form>
     <br>
+
     <a href="items_form.php">Crear Nuevo Item</a>
     <hr>
 
@@ -56,7 +70,7 @@ $token = csrf_token();
             <td><?= e($item['stock']) ?></td>
             <td>
                 <a href="items_form.php?id=<?= $item['id'] ?>">Editar</a>
-                
+
                 <form action="items_delete.php" method="POST" style="display:inline">
                     <input type="hidden" name="id" value="<?= $item['id'] ?>">
                     <input type="hidden" name="csrf_token" value="<?= $token ?>">
@@ -71,7 +85,9 @@ $token = csrf_token();
         <?php if($page > 1): ?>
             <a href="?page=<?= $page-1 ?>&q=<?= e($busqueda) ?>">Anterior</a>
         <?php endif; ?>
+        
         Página <?= $page ?>
+        
         <a href="?page=<?= $page+1 ?>&q=<?= e($busqueda) ?>">Siguiente</a>
     </div>
 </body>
