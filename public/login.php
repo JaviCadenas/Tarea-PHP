@@ -27,22 +27,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <!DOCTYPE html>
-<html>
-<head><title>Login</title></head>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
-    <h1>Entrar al Inventario</h1>
-    <?php if($error): ?><p style="color:red"><?= e($error) ?></p><?php endif; ?>
-    
-    <form method="POST">
-        Usuario: <input type="text" name="username" required><br>
-        Clave: <input type="password" name="password" required><br>
-        <button type="submit">Entrar</button>
-    </form>
-    <div style="margin-top: 20px;">
-        ¿No tienes cuenta? 
-        <a href="register.php" style="color: dodgerblue; text-decoration: none; font-weight: bold;">
-            Crea una aquí
-        </a>
+
+    <div class="login-container">
+        <h1>Entrar al Inventario</h1>
+        
+        <?php if($error): ?>
+            <div class="error-msg"><?= e($error) ?></div>
+        <?php endif; ?>
+        
+        <form method="POST">
+            <div style="text-align: left; margin-bottom: 5px; color: #666;">Usuario</div>
+            <input type="text" name="username" required>
+            
+            <div style="text-align: left; margin-bottom: 5px; margin-top: 10px; color: #666;">Clave</div>
+            <input type="password" name="password" required>
+            
+            <br><br>
+            <button type="submit">Entrar</button>
+        </form>
+
+        <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
+            <span style="color: #666;">¿No tienes cuenta?</span><br>
+            <a href="register.php" style="font-weight: bold;">
+                Crea una aquí
+            </a>
+        </div>
     </div>
+
 </body>
 </html>

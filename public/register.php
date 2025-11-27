@@ -41,27 +41,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Cuenta</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Crear Nueva Cuenta</h1>
 
-    <?php if($error): ?>
-        <p style="color: red;"><?= e($error) ?></p>
-    <?php endif; ?>
+    <div class="login-container">
+        <h1>Crear Nueva Cuenta</h1>
 
-    <form method="POST">
-        <label>Elige un Usuario:</label><br>
-        <input type="text" name="username" required><br><br>
+        <?php if($error): ?>
+            <div class="error-msg"><?= e($error) ?></div>
+        <?php endif; ?>
 
-        <label>Elige una Contraseña:</label><br>
-        <input type="password" name="password" required><br><br>
+        <form method="POST">
+            <div style="text-align: left; color: #666; font-size: 0.9em;">Elige un Usuario:</div>
+            <input type="text" name="username" required>
 
-        <button type="submit">¡Registrarme!</button>
-    </form>
-    
-    <p>
-        <a href="login.php">Volver al Login</a>
-    </p>
+            <div style="text-align: left; color: #666; font-size: 0.9em; margin-top: 10px;">Elige una Contraseña:</div>
+            <input type="password" name="password" required>
+
+            <br><br>
+            <button type="submit" style="background-color: #3498db;">¡Registrarme!</button>
+        </form>
+        
+        <div style="margin-top: 20px;">
+            <a href="login.php">← Volver al Login</a>
+        </div>
+    </div>
+
 </body>
 </html>
