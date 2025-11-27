@@ -1,20 +1,20 @@
 /* public/style.css */
 
-/* --- CONFIGURACIÓN BASE --- */
+/* En principio todas las paginas van a seguir esta base. */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f2f5;
     color: #333;
     display: flex;
     justify-content: center;
-    align-items: center; /* Centra verticalmente si es corto */
-    min-height: 100vh;   /* Asegura que cubra toda la pantalla */
+    align-items: center; 
+    min-height: 100vh; 
     margin: 0;
-    padding: 20px;       /* Un poco de aire en móviles */
+    padding: 20px;    
     box-sizing: border-box;
 }
 
-/* --- TARJETAS (CONTENEDORES) --- */
+/* Para los formularios: */
 /* Esta es para login, registro y formularios pequeños */
 .login-container {
     background-color: white;
@@ -26,21 +26,21 @@ body {
     text-align: center;
 }
 
-/* Esta es NUEVA: para el listado (index), que es más ancho */
+/* Este es especial solo para el listado */
 .dashboard-container {
     background-color: white;
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     width: 100%;
-    max-width: 900px; /* Más ancho para que quepa la tabla */
-    text-align: left; /* El contenido alineado a la izquierda */
+    max-width: 900px; /* Más ancho para que quepa toda la tabla */
+    text-align: left;
 }
 
-/* --- ELEMENTOS COMUNES --- */
+/* Elementos generales */
 h1 { margin-top: 0; color: #333; }
 
-/* Inputs */
+/* Los inputs */
 input[type="text"], input[type="password"], input[type="number"] {
     width: 100%;
     padding: 10px;
@@ -50,7 +50,7 @@ input[type="text"], input[type="password"], input[type="number"] {
     box-sizing: border-box;
 }
 
-/* Botones */
+/* Los botones */
 button, .btn {
     background-color: #4CAF50;
     color: white;
@@ -65,14 +65,14 @@ button, .btn {
 }
 button:hover, .btn:hover { background-color: #45a049; }
 
-/* Botones secundarios (tipo "Cancelar" o "Editar") */
+/* Botones secundarios como "Cancelar" y "Editar" */
 .btn-secondary { background-color: #3498db; }
 .btn-secondary:hover { background-color: #2980b9; }
 
 .btn-danger { background-color: #e74c3c; }
 .btn-danger:hover { background-color: #c0392b; }
 
-/* --- TABLAS (Para el index) --- */
+/* Las tablas: */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -89,14 +89,14 @@ table th {
     font-weight: bold;
 }
 
-/* --- MODO OSCURO (Overrides) --- */
+/* Lo mismo pero para el modo oscuro */
 body.tema-oscuro {
     background-color: #222;
     color: #eee;
 }
 body.tema-oscuro .login-container,
 body.tema-oscuro .dashboard-container {
-    background-color: #333; /* Tarjeta gris oscuro */
+    background-color: #333; 
     color: #eee;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
