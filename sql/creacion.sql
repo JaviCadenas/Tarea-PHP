@@ -24,9 +24,3 @@ CREATE TABLE IF NOT EXISTS auditoria (
     accion VARCHAR(255) NOT NULL,
     fecha DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
--- Usuario Administrador por defecto
--- Usuario: admin
--- Contraseña: admin123
-INSERT IGNORE INTO usuarios (username, password) VALUES 
-('admin', '$2y$10$8.K/1.A.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a');
