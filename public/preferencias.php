@@ -1,5 +1,10 @@
 <?php
 // public/preferencias.php
+require '../app/utils.php'; // Necesario para la funcion e()
+require_login(); // Protegemos
+
+// Leemos el tema actual para pintarlo
+$tema = $_COOKIE['tema'] ?? 'claro';
 
 if (isset($_GET['modo'])) {
     $modo = $_GET['modo'];
@@ -14,19 +19,28 @@ if (isset($_GET['modo'])) {
 
 <!DOCTYPE html>
 <html>
-<head><title>Preferencias</title></head>
-<body>
-    <h1>Elige el aspecto</h1>
-    
-    <a href="?modo=claro" style="padding:10px; background:#eee; color:black; text-decoration:none;">
-        Modo Claro ☀️
-    </a>
+<head>
+    <title>Preferencias</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="tema-<?= e($tema) ?>">
 
-    <a href="?modo=oscuro" style="padding:10px; background:#333; color:white; text-decoration:none;">
-        Modo Oscuro 🌙
-    </a>
+    <div class="login-container">
+        <h1>Elige el aspecto</h1>
+        <p>Personaliza tu experiencia:</p>
+        
+        <br>
+        
+        <a href="?modo=claro" class="btn" style="background-color: #eee; color: black; border: 1px solid #ccc; width: 100%; box-sizing: border-box;">
+            Modo Claro ☀️
+        </a>
 
-    <br><br>
-    <a href="index.php">Volver sin cambiar nada</a>
+        <a href="?modo=oscuro" class="btn" style="background-color: #333; color: white; width: 100%; box-sizing: border-box; margin-top: 10px;">
+            Modo Oscuro 🌙
+        </a>
+
+        <br><br><br>
+        <a href="index.php">Volver sin cambiar nada</a>
+    </div>
 </body>
 </html>

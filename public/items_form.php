@@ -4,6 +4,9 @@ require '../app/utils.php';
 require '../app/csrf.php';
 require_login();
 
+// Recuperamos el tema para el CSS (necesario para el fondo)
+$tema = $_COOKIE['tema'] ?? 'claro';
+
 $id = $_GET['id'] ?? null;
 $item = ['nombre' => '', 'stock' => 0, 'id' => '']; // Por defecto no van a haber datos
 
@@ -47,24 +50,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html>
-<head><title>Formulario Item</title></head>
-<body>
-    <h1><?= $id ? 'Editar' : 'Crear Nuevo' ?> Ítem</h1>
-    
-    <form method="POST">
-        <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
-        <input type="hidden" name="id" value="<?= e($item['id']) ?>">
+<head>
+    <title>Formulario Item</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="tema-<?= e($tema) ?>">
 
-        <label>Nombre:</label><br>
-        <input type="text" name="nombre" value="<?= e($item['nombre']) ?>" required>
-        <br><br>
+    <div class="login-container">
+        <h1><?= $id ? 'Editar' : 'Crear Nuevo' ?> Ítem</h1>
         
-        <label>Stock:</label><br>
-        <input type="number" name="stock" value="<?= e($item['stock']) ?>">
-        <br><br>
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
+            <input type="hidden" name="id" value="<?= e($item['id']) ?>">
 
-        <button type="submit">Guardar</button>
-        <a href="index.php">Cancelar</a>
-    </form>
+            <div style="text-align: left; margin-bottom: 5px;">Nombre:</div>
+            <input type="text" name="nombre" value="<?= e($item['nombre']) ?>" required>
+            
+            <div style="text-align: left; margin-bottom: 5px; margin-top: 10px;">Stock:</div>
+            <input type="number" name="stock" value="<?= e($item['stock']) ?>">
+            
+            <br><br>
+            <button type="submit">Guardar</button>
+            
+            <div style="margin-top: 15px;">
+                <a href="index.php" style="color: #666;">Cancelar</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

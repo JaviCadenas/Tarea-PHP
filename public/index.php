@@ -28,67 +28,70 @@ $token = csrf_token();
 <head>
     <meta charset="UTF-8">
     <title>Inventario</title>
-    
-    <style>
-        body { font-family: sans-serif; padding: 20px; }
-        
-        /* Estilos cuando estamos en modo CLARO */
-        body.tema-claro { background-color: white; color: black; }
-        body.tema-claro a { color: blue; }
-
-        /* Estilos cuando estamos en modo OSCURO */
-        body.tema-oscuro { background-color: #222; color: #eee; }
-        body.tema-oscuro a { color: #4da6ff; }
-        body.tema-oscuro table { border-color: #555; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="tema-<?= e($tema) ?>">
 
-    <nav>
-        Hola, <?= e($_SESSION['username']) ?> |
-        <a href="logout.php">Salir</a> |
-        <a href="preferencias.php">Cambiar Color</a>
-    </nav>
-
-    <h1>Listado de Items</h1>
-
-    <form method="GET">
-        <input type="text" name="q" value="<?= e($busqueda) ?>" placeholder="Buscar...">
-        <button type="submit">Buscar</button>
-    </form>
-    <br>
-
-    <a href="items_form.php">Crear Nuevo Item</a>
-    <hr>
-
-    <table border="1">
-        <tr><th>Nombre</th><th>Stock</th><th>Acciones</th></tr>
-        <?php foreach ($items as $item): ?>
-        <tr>
-            <td><?= e($item['nombre']) ?></td>
-            <td><?= e($item['stock']) ?></td>
-            <td>
-                <a href="items_form.php?id=<?= $item['id'] ?>">Editar</a>
-
-                <form action="items_delete.php" method="POST" style="display:inline">
-                    <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                    <input type="hidden" name="csrf_token" value="<?= $token ?>">
-                    <button type="submit" onclick="return confirm('¿Seguro?')">Borrar</button>
-                </form>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </table>
-
-    <div style="margin-top:10px;">
-        <?php if($page > 1): ?>
-            <a href="?page=<?= $page-1 ?>&q=<?= e($busqueda) ?>">Anterior</a>
-        <?php endif; ?>
+    <div class="dashboard-container">
         
-        Página <?= $page ?>
-        
-        <a href="?page=<?= $page+1 ?>&q=<?= e($busqueda) ?>">Siguiente</a>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+            <div>
+                Hola, <b><?= e($_SESSION['username']) ?></b>
+            </div>
+            <div>
+                <a href="preferencias.php" style="margin-right: 10px;">Cambiar Color</a> |
+                <a href="logout.php" style="color: #e74c3c;">Salir</a>
+            </div>
+        </div>
+
+        <h1>Listado de Items</h1>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <form method="GET" style="display: flex; gap: 5px; margin: 0;">
+                <input type="text" name="q" value="<?= e($busqueda) ?>" placeholder="Buscar..." style="margin: 0;">
+                <button type="submit">Buscar</button>
+            </form>
+
+            <a href="items_form.php" class="btn">Crear Nuevo Item</a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Stock</th>
+                    <th style="width: 180px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($items as $item): ?>
+                <tr>
+                    <td><?= e($item['nombre']) ?></td>
+                    <td><?= e($item['stock']) ?></td>
+                    <td>
+                        <a href="items_form.php?id=<?= $item['id'] ?>" class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.9em;">Editar</a>
+
+                        <form action="items_delete.php" method="POST" style="display:inline">
+                            <input type="hidden" name="id" value="<?= $item['id'] ?>">
+                            <input type="hidden" name="csrf_token" value="<?= $token ?>">
+                            <button type="submit" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.9em;" onclick="return confirm('¿Seguro?')">Borrar</button>
+                        </form>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <div style="margin-top:20px; text-align: center;">
+            <?php if($page > 1): ?>
+                <a href="?page=<?= $page-1 ?>&q=<?= e($busqueda) ?>">Anterior</a>
+            <?php endif; ?>
+            
+            <span style="margin: 0 10px;">Página <?= $page ?></span>
+            
+            <a href="?page=<?= $page+1 ?>&q=<?= e($busqueda) ?>">Siguiente</a>
+        </div>
     </div>
 </body>
 </html>
