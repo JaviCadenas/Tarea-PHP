@@ -27,6 +27,6 @@ CREATE TABLE IF NOT EXISTS auditoria (
 
 -- Usuario Administrador por defecto
 -- Usuario: admin
--- Contraseña: admin
+-- Contraseña: admin123
 INSERT IGNORE INTO usuarios (username, password) VALUES 
-('admin', 'admin');
+('admin', '$2y$10$8.K/1.A.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a');
