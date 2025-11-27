@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="password" name="password" required>
 
             <br><br>
-            <button type="submit" style="background-color: #3498db;">¡Registrarme!</button>
+            <button type="submit" style="background-color: #3498db;">Registrarse</button>
         </form>
         
         <div style="margin-top: 20px;">
